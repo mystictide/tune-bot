@@ -14,13 +14,16 @@ const client = new twit({
 
 //post tweet
 const postTune = asyncHandler(async (req) => {
-  var tuneURL = await getTune();
-  client.post(
-    "statuses/update",
-    { status: tuneURL },
-    function (err, data, response) {
-    }
-  );
+  try {
+    var tuneURL = await getTune();
+    client.post(
+      "statuses/update",
+      { status: tuneURL },
+      function (err, data, response) {}
+    );
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //get tune

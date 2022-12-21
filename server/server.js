@@ -4,10 +4,18 @@ const dotenv = require("dotenv").config();
 const favicon = require("serve-favicon");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const twit = require("./twit");
-const connectDB = require("./config/db");
 const port = process.env.PORT || 7474;
 
-connectDB();
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.CONNSTRING);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
 const app = express();
 
 app.use(errorHandler);
@@ -20,4 +28,8 @@ app.get("/", (req, res) => {
   res.send("tune posted");
 });
 
-app.listen(port, () => console.log(`server started on port: ${port}`));
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
+  });
+});
