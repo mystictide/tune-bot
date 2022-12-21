@@ -1,0 +1,24 @@
+{
+  "name": "tune-bot",
+  "version": "1.0.0",
+  "description": "Posts random selection of songs from Spotify every few hours daily on Twitter.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js"
+  },
+  "author": "Furkan Güler",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.8.1",
+    "serve-favicon": "^2.5.0",
+    "twit": "^2.2.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
