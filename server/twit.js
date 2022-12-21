@@ -1,6 +1,5 @@
 const fs = require("fs");
 const twit = require("twit");
-const mongoose = require("mongoose");
 const Tunes = require("./model/tuneModel");
 const asyncHandler = require("express-async-handler");
 
@@ -15,11 +14,13 @@ const client = new twit({
 //post tweet
 const postTune = asyncHandler(async (req) => {
   try {
-    var tuneURL = await getTune();
+    var response = await getTune();
     client.post(
       "statuses/update",
-      { status: tuneURL },
-      function (err, data, response) {}
+      { status: response.URL },
+      function (err, data, response) {
+        console.log(data);
+      }
     );
   } catch (error) {
     console.log(error);
@@ -28,14 +29,9 @@ const postTune = asyncHandler(async (req) => {
 
 //get tune
 const getTune = asyncHandler(async () => {
-  return Tunes.count().exec(function (err, count) {
-    var random = Math.floor(Math.random() * count);
-    Tunes.findOne()
-      .skip(random)
-      .exec(function (err, result) {
-        // console.log(result.URL);
-      });
-  });
+  var count = await Tunes.count().exec();
+  var random = Math.floor(Math.random() * count);
+  return await Tunes.findOne().skip(random).exec();
 });
 
 //import from file
