@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(favicon("favicon.ico"));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   twit.postTune();
   res.send("tune posted");
 });
