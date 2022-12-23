@@ -24,8 +24,13 @@ app.use(express.json());
 app.use(favicon("favicon.ico"));
 app.use(express.urlencoded({ extended: false }));
 
+twit.postTune();
+setInterval(function () {
+  twit.postTune();
+}, 11000000);
+
 app.get("/", (req, res) => {
-  res.send("tune posted");
+  res.send("waiting to post tune");
 });
 
 app.post("/posttune", (req, res) => {
