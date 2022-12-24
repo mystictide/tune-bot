@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 twit.postTune();
 setInterval(function () {
   twit.postTune();
-}, 11000000);
+}, 7200000);
 
 app.get("/", (req, res) => {
   res.send("waiting to post tune");
